@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<PackageId>Enmeshed.Tooling</PackageId>
+		<Version>1.0.1</Version>
+		<Authors>j&amp;s-soft GmbH</Authors>
+		<Company>j&amp;s-soft GmbHj&amp;s-soft GmbH</Company>
+		<PackageTags>Enmeshed</PackageTags>
+		<Nullable>enable</Nullable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RootNamespace>Enmeshed.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<RepositoryUrl>https://github.com/nmshd/bkb-libraries</RepositoryUrl>
+		<PackageProjectUrl>https://enmeshed.eu</PackageProjectUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="gfoidl.Base64" Version="1.1.1" />
+	</ItemGroup>
+
+</Project>

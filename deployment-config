@@ -1,0 +1,10 @@
+BuildingBlocks.API
+BuildingBlocks.Application
+BuildingBlocks.Application.Abstractions
+BuildingBlocks.Infrastructure
+Crypto
+DevelopmentKit.Identity
+StronglyTypedIds
+EventBus
+Tooling
+UnitTestTools

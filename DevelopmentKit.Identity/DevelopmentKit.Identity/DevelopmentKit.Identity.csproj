@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<PackageId>Enmeshed.DevelopmentKit.Identity</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>j&amp;s-soft GmbH</Authors>
+		<Company>j&amp;s soft GmbH</Company>
+		<Nullable>enable</Nullable>
+		<PackageTags>Enmeshed</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RootNamespace>Enmeshed.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<RepositoryUrl>https://github.com/nmshd/bkb-libraries</RepositoryUrl>
+		<PackageProjectUrl>https://enmeshed.eu</PackageProjectUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Enmeshed.StronglyTypedIds" Version="1.0.0" />
+		<PackageReference Include="SimpleBase" Version="3.1.0" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto", "Crypto\Crypto.csproj", "{8A2A179E-72BE-4D5E-9334-E2120AEFE349}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.Tests", "Crypto.Tests\Crypto.Tests.csproj", "{77E671D5-3162-41F8-A35F-03499BE1D270}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crypto.API", "Crypto.API\Crypto.API.csproj", "{12135628-8F94-48E9-8A7B-972D48C34246}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F1FCAAEF-FF3B-4FD5-892B-04A57AC455AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{715C2808-028C-4876-BB21-99077B02302D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A2A179E-72BE-4D5E-9334-E2120AEFE349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2A179E-72BE-4D5E-9334-E2120AEFE349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2A179E-72BE-4D5E-9334-E2120AEFE349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2A179E-72BE-4D5E-9334-E2120AEFE349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E671D5-3162-41F8-A35F-03499BE1D270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E671D5-3162-41F8-A35F-03499BE1D270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E671D5-3162-41F8-A35F-03499BE1D270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E671D5-3162-41F8-A35F-03499BE1D270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12135628-8F94-48E9-8A7B-972D48C34246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12135628-8F94-48E9-8A7B-972D48C34246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12135628-8F94-48E9-8A7B-972D48C34246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12135628-8F94-48E9-8A7B-972D48C34246}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A2A179E-72BE-4D5E-9334-E2120AEFE349} = {F1FCAAEF-FF3B-4FD5-892B-04A57AC455AE}
+		{77E671D5-3162-41F8-A35F-03499BE1D270} = {715C2808-028C-4876-BB21-99077B02302D}
+		{12135628-8F94-48E9-8A7B-972D48C34246} = {F1FCAAEF-FF3B-4FD5-892B-04A57AC455AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FABBC331-65B4-49A8-84B2-B368EE3E4198}
+	EndGlobalSection
+EndGlobal
