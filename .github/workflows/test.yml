@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/sdk:5.0
+    steps:
+      - run: .ci/build.sh
+      - run: .ci/test.sh
