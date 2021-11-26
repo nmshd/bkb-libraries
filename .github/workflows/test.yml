@@ -23,6 +23,7 @@ jobs:
           show-on-failure: true
           enable-view-status: true
           enable-review-diffs: true
+      - run: sleep 10
       # - name: Success Notification
       #   if: ${{ success() }}
       #   uses: mikesprague/teams-incoming-webhook-action@v1
