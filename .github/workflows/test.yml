@@ -10,5 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
+      - uses: actions/checkout@v2
       - run: .ci/build.sh
       - run: .ci/test.sh
