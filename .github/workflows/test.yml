@@ -16,6 +16,13 @@ jobs:
         with:
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
+          card-layout-start: complete
+          card-layout-exit: complete
+          show-on-start: true
+          show-on-exit: true
+          show-on-failure: true
+          enable-view-status: true
+          enable-review-diffs: true
       # - name: Success Notification
       #   if: ${{ success() }}
       #   uses: mikesprague/teams-incoming-webhook-action@v1
