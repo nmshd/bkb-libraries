@@ -10,6 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
-      - uses: actions/checkout@v2
-      - run: .ci/build.sh
-      - run: .ci/test.sh
+      # - uses: actions/checkout@v2
+      - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
+        if: always()
+        with:
+          github-token: ${{ github.token }}
+          webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
+      # - name: Success Notification
+      #   if: ${{ success() }}
+      #   uses: mikesprague/teams-incoming-webhook-action@v1
+      #   with:
+      #     github-token: ${{ github.token }}
+      #     webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
+      #     deploy-card: true
+      #     title: "Deployment Successful"
+      #     color: "success"
