@@ -21,8 +21,6 @@ jobs:
           show-on-start: true
           show-on-exit: true
           show-on-failure: true
-          enable-view-status: true
-          enable-review-diffs: true
       - run: sleep 10
       # - name: Success Notification
       #   if: ${{ success() }}
