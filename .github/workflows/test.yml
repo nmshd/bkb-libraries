@@ -11,23 +11,13 @@ jobs:
     container: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - uses: actions/checkout@v2
-      - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
-        if: always()
+      - run: sleep 10
+      - name: Success Notification
+        if: ${{ success() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
         with:
           github-token: ${{ github.token }}
-          webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
-          card-layout-start: complete
-          card-layout-exit: complete
-          show-on-start: true
-          show-on-exit: true
-          show-on-failure: true
-      - run: sleep 10
-      # - name: Success Notification
-      #   if: ${{ success() }}
-      #   uses: mikesprague/teams-incoming-webhook-action@v1
-      #   with:
-      #     github-token: ${{ github.token }}
-      #     webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
-      #     deploy-card: true
-      #     title: "Deployment Successful"
-      #     color: "success"
+          webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
+          deploy-card: true
+          title: "Deployment Successful"
+          color: "success"
