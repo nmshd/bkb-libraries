@@ -8,4 +8,3 @@ set -e
     dotnet pack $project_path --no-restore --no-build
     dotnet nuget push **/*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
 done
-

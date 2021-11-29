@@ -8,4 +8,3 @@ do
         echo $line | cut -f1 -d"/" # return the filename
     fi
 done
-

@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: bash .ci/build.sh
       - run: bash .ci/publish.sh
-        env: 
+        env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       - name: Success Notification
         if: ${{ success() }}
@@ -33,4 +33,3 @@ jobs:
           deploy-card: true
           title: "Deployment Failed"
           color: "failure"
-          
