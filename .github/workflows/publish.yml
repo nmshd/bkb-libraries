@@ -11,6 +11,8 @@ jobs:
     container: mcr.microsoft.com/dotnet/sdk:5.0
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - run: bash .ci/build.sh
       - run: bash .ci/publish.sh
         env:
