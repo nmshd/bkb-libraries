@@ -3,9 +3,11 @@
 set -x
 set -e
 
-./.ci/find_changed_projects.sh | tee /dev/stderr | while read proj
+root_dir=$(pwd)
+
+./.ci/find_changed_projects.sh | tee /dev/stderr | while read project_name
 do 
-    project_path="$proj/$proj"
-    dotnet restore $project_path
-    dotnet build $project_path --no-restore
+    cd "$root_dir/$project_name/$project_name"
+    dotnet restore
+    dotnet build --configuration Release --no-restore
 done
