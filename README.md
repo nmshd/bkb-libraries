@@ -2,7 +2,6 @@
 
 [![GitHub Actions CI](https://github.com/nmshd/bkb-libraries/workflows/Publish/badge.svg)](https://github.com/nmshd/bkb-libraries/actions?query=workflow%3Apublish)
 [![Version](https://badgen.net/nuget/v/Enmeshed.Tooling)](https://www.nuget.org/packages/Enmeshed.Tooling/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 This monorepo consolidates all libraries used in multiple Enmeshed Backbone microservices. It contains the following packages:
 
