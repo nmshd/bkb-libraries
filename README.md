@@ -1,4 +1,4 @@
-# <Name of the Monorepo, e.g. "Database">
+# Backbone Libraries
 
 [![GitHub Actions CI](https://github.com/nmshd/bkb-libraries/workflows/Publish/badge.svg)](https://github.com/nmshd/bkb-libraries/actions?query=workflow%3Apublish)
 [![Version](https://badgen.net/nuget/v/Enmeshed.Tooling)](https://www.nuget.org/packages/Enmeshed.Tooling/)
