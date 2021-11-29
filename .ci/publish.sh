@@ -1,7 +1,7 @@
-#!/bin/bash
-
 set -x
 set -e
+
+cd adsad
 
 ./.ci/find_changed_projects.sh | while read project_name; do 
     project_path="$project_name/$project_name"
