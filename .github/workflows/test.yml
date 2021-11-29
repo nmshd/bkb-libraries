@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/sdk:5.0
+    steps:
+      - uses: actions/checkout@v2
+      - run: bash .ci/build.sh
+      - run: bash .ci/test.sh
+      - name: Failure Notification
+        if: ${{ failure() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_BACKBONE_CICD }}
+          deploy-card: true
+          title: "Deployment Failed"
+          color: "failure"
