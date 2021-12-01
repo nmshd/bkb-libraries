@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using gfoidl.Base64;
+using NeoSmart.Utils;
 
 namespace Enmeshed.Tooling.JsonConverters
 {
@@ -18,7 +18,7 @@ namespace Enmeshed.Tooling.JsonConverters
 
             try
             {
-                return Base64.Url.Decode(stringValue);
+                return UrlBase64.Decode(stringValue);
             }
             catch (FormatException e)
             {
@@ -28,7 +28,7 @@ namespace Enmeshed.Tooling.JsonConverters
 
         public override void Write(Utf8JsonWriter writer, byte[] value, JsonSerializerOptions options)
         {
-            var stringValue = Base64.Url.Encode(value);
+            var stringValue = UrlBase64.Encode(value);
             writer.WriteStringValue(stringValue);
         }
     }
