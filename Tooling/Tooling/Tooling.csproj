@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<PackageId>Enmeshed.Tooling</PackageId>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Authors>j&amp;s-soft GmbH</Authors>
 		<Company>j&amp;s-soft GmbHj&amp;s-soft GmbH</Company>
 		<PackageTags>Enmeshed</PackageTags>
@@ -17,7 +17,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="gfoidl.Base64" Version="1.1.1" />
+		<PackageReference Include="UrlBase64" Version="0.1.2" />
 	</ItemGroup>
 
 </Project>
