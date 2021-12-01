@@ -6,7 +6,7 @@ set -e
 root_dir=$(pwd)
 
 ./.ci/find_changed_projects.sh | tee /dev/stderr | while read library_name; do 
-    test_project_path="${root_dir}${library_name}/${library_name}.Tests"
+    test_project_path="${root_dir}/${library_name}/${library_name}.Tests"
 
     if [ -e "$test_project_path" ]; then # check if test project exists
         cd "${test_project_path}"
