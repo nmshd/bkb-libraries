@@ -10,16 +10,16 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AzureBlobStorageServiceCollectionExtensions
     {
-        public static void AddBlobStorage(this IServiceCollection services, Action<BlobStorageOptions> setupOptions)
+        public static void AddAzureStorageAccount(this IServiceCollection services, Action<AzureStorageAccountOptions> setupOptions)
         {
-            var options = new BlobStorageOptions();
+            var options = new AzureStorageAccountOptions();
             setupOptions.Invoke(options);
 
-            services.AddBlobStorage(options);
+            services.AddAzureStorageAccount(options);
         }
 
 
-        public static void AddBlobStorage(this IServiceCollection services, BlobStorageOptions options)
+        public static void AddAzureStorageAccount(this IServiceCollection services, AzureStorageAccountOptions options)
         {
             services.AddSingleton(_ =>
             {
@@ -42,11 +42,11 @@ namespace Microsoft.Extensions.DependencyInjection
         }
     }
 
-    public class BlobStorageOptions
+    public class AzureStorageAccountOptions
     {
 #pragma warning disable CS8618
-        public string ConnectionString { get; init; }
-        public string ContainerName { get; init; }
+        public string ConnectionString { get; set; }
+        public string ContainerName { get; set; }
 #pragma warning restore CS8618
     }
 }
