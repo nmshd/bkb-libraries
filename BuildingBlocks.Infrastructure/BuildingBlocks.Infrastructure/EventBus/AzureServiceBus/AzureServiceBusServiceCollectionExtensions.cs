@@ -45,7 +45,6 @@ namespace Microsoft.Extensions.DependencyInjection
 #pragma warning disable CS8618
         public string ConnectionString { get; set; }
         public string SubscriptionClientName { get; set; }
-        public int EventBusRetryCount { get; set; } = 5;
 #pragma warning restore CS8618
     }
 }
