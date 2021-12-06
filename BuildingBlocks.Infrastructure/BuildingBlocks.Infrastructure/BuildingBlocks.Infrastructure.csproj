@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<PackageId>Enmeshed.BuildingBlocks.Infrastructure</PackageId>
-		<Version>1.0.4</Version>
+		<Version>1.0.5</Version>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
 		<PackageTags>Enmeshed</PackageTags>
@@ -19,7 +19,7 @@
 	<ItemGroup>
 		<PackageReference Include="Autofac" Version="6.3.0" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
-		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.1" />
+		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />

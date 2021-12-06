@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<PackageId>Enmeshed.BuildingBlocks.Application</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>j&amp;s-soft GmbH</Authors>
 		<Company>j&amp;s-soft GmbH</Company>
 		<PackageTags>Enmeshed</PackageTags>
@@ -20,7 +20,7 @@
 		<PackageReference Include="AutoMapper" Version="10.1.1" />
 		<PackageReference Include="ByteSize" Version="2.1.1" />
 		<PackageReference Include="FluentValidation" Version="10.3.4" />
-		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.1" />
+		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.2" />
 		<PackageReference Include="Enmeshed.Tooling" Version="1.0.1" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
