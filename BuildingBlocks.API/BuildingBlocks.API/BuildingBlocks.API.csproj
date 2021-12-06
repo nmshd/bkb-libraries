@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<PackageId>Enmeshed.BuildingBlocks.API</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Nullable>enable</Nullable>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
