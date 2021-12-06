@@ -18,7 +18,7 @@ namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventB
             CreationDate = SystemTime.UtcNow;
         }
 
-        public string IntegrationEventId { get; }
-        public DateTime CreationDate { get; }
+        public string IntegrationEventId { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }
