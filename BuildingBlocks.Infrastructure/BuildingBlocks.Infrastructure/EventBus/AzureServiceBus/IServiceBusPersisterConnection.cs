@@ -1,12 +1,12 @@
 ﻿using System;
-using Microsoft.Azure.ServiceBus;
+using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
 {
     public interface IServiceBusPersisterConnection : IDisposable
     {
-        ServiceBusConnectionStringBuilder ServiceBusConnectionStringBuilder { get; }
-
-        ITopicClient CreateModel();
+        ServiceBusClient TopicClient { get; }
+        ServiceBusAdministrationClient AdministrationClient { get; }
     }
 }
