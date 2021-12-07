@@ -17,7 +17,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
-            services.AddSingleton<IServiceBusPersisterConnection>(new DefaultServiceBusPersisterConnection(options.ConnectionString));
+            services.AddSingleton<IServiceBusPersisterConnection>(
+                new DefaultServiceBusPersisterConnection(options.ConnectionString));
 
             services.AddSingleton<IEventBus, EventBusAzureServiceBus>(sp =>
             {
