@@ -1,44 +1,52 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
 using Enmeshed.BuildingBlocks.Infrastructure.EventBus.Json;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
 {
-    public class EventBusAzureServiceBus : IEventBus
+    public class EventBusAzureServiceBus : IEventBus, IDisposable
     {
         private const string INTEGRATION_EVENT_SUFFIX = "IntegrationEvent";
+        private const string TOPIC_NAME = "default";
         private const string AUTOFAC_SCOPE_NAME = "event_bus";
-
         private readonly ILifetimeScope _autofac;
         private readonly ILogger<EventBusAzureServiceBus> _logger;
+        private readonly ServiceBusProcessor _processor;
+        private readonly ServiceBusSender _sender;
         private readonly IServiceBusPersisterConnection _serviceBusPersisterConnection;
-        private readonly SubscriptionClient _subscriptionClient;
-        private readonly IEventBusSubscriptionsManager _subsManager;
+        private readonly IEventBusSubscriptionsManager _subscriptionManager;
+        private readonly string _subscriptionName;
 
         public EventBusAzureServiceBus(IServiceBusPersisterConnection serviceBusPersisterConnection,
-            ILogger<EventBusAzureServiceBus> logger, IEventBusSubscriptionsManager subsManager,
-            string subscriptionClientName, ILifetimeScope autofac)
+            ILogger<EventBusAzureServiceBus> logger, IEventBusSubscriptionsManager subscriptionManager,
+            ILifetimeScope autofac,
+            string subscriptionClientName)
         {
             _serviceBusPersisterConnection = serviceBusPersisterConnection;
-            _logger = logger;
-            _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
-
-            _subscriptionClient = new SubscriptionClient(
-                serviceBusPersisterConnection.ServiceBusConnectionStringBuilder,
-                subscriptionClientName);
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _subscriptionManager = subscriptionManager;
             _autofac = autofac;
+            _subscriptionName = subscriptionClientName;
+            _sender = _serviceBusPersisterConnection.TopicClient.CreateSender(TOPIC_NAME);
+            var options = new ServiceBusProcessorOptions {MaxConcurrentCalls = 10, AutoCompleteMessages = false};
+            _processor =
+                _serviceBusPersisterConnection.TopicClient.CreateProcessor(TOPIC_NAME, _subscriptionName, options);
 
-            RemoveDefaultRule().GetAwaiter().GetResult();
-            RegisterSubscriptionClientMessageHandler();
+            RegisterSubscriptionClientMessageHandlerAsync().GetAwaiter().GetResult();
+        }
+
+        public void Dispose()
+        {
+            _subscriptionManager.Clear();
+            _processor.CloseAsync().GetAwaiter().GetResult();
         }
 
         public async void Publish(IntegrationEvent @event)
@@ -50,17 +58,16 @@ namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
             });
             var body = Encoding.UTF8.GetBytes(jsonMessage);
 
-            var message = new Message
+            var message = new ServiceBusMessage
             {
                 MessageId = @event.IntegrationEventId,
-                Body = body,
-                Label = eventName
+                Body = new BinaryData(body),
+                Subject = eventName
             };
-            var topicClient = _serviceBusPersisterConnection.CreateModel();
 
             _logger.LogTrace($"Sending integration event with id '{message.MessageId}'...");
 
-            await topicClient.SendAsync(message);
+            await _sender.SendMessageAsync(message);
 
             _logger.LogTrace($"Successfully sent integration event with id '{message.MessageId}'.");
         }
@@ -68,38 +75,44 @@ namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
         public void SubscribeDynamic<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler
         {
-            _subsManager.AddDynamicSubscription<TH>(eventName);
+            _logger.LogInformation("Subscribing to dynamic event {EventName} with {EventHandler}", eventName,
+                typeof(TH).Name);
+
+            _subscriptionManager.AddDynamicSubscription<TH>(eventName);
         }
 
-        public async void Subscribe<T, TH>()
+        public void Subscribe<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
         {
             var eventName = typeof(T).Name.Replace(INTEGRATION_EVENT_SUFFIX, "");
 
-            var containsKey = _subsManager.HasSubscriptionsForEvent<T>();
+            var containsKey = _subscriptionManager.HasSubscriptionsForEvent<T>();
             if (!containsKey)
                 try
                 {
-                    _logger.LogTrace("Trying to subscribe to subscription client...");
+                    _logger.LogTrace("Trying to create subscription on Service Bus...");
 
-                    await _subscriptionClient.AddRuleAsync(new RuleDescription
-                    {
-                        Filter = new CorrelationFilter {Label = eventName},
-                        Name = eventName
-                    });
+                    _serviceBusPersisterConnection.AdministrationClient.CreateRuleAsync(TOPIC_NAME, _subscriptionName,
+                        new CreateRuleOptions
+                        {
+                            Filter = new CorrelationRuleFilter {Subject = eventName},
+                            Name = eventName
+                        }).GetAwaiter().GetResult();
 
-                    _logger.LogTrace("Successfully subscribed to subscription client.");
+                    _logger.LogTrace("Successfully created subscription on Service Bus.");
                 }
                 catch (ServiceBusException)
                 {
                     _logger.LogInformation($"The messaging entity {eventName} already exists.");
                 }
 
-            _subsManager.AddSubscription<T, TH>();
+            _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, typeof(TH).Name);
+
+            _subscriptionManager.AddSubscription<T, TH>();
         }
 
-        public async void Unsubscribe<T, TH>()
+        public void Unsubscribe<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
         {
@@ -107,129 +120,102 @@ namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
 
             try
             {
-                _logger.LogTrace("Trying to unsubscribe from subscription client...");
+                _logger.LogTrace("Trying to remove subscription on Service Bus...");
 
-                await _subscriptionClient.RemoveRuleAsync(eventName);
+                _serviceBusPersisterConnection
+                    .AdministrationClient
+                    .DeleteRuleAsync(TOPIC_NAME, _subscriptionName, eventName)
+                    .GetAwaiter()
+                    .GetResult();
 
-                _logger.LogTrace("Successfully unsubscribed from subscription client.");
+                _logger.LogTrace("Successfully removed subscription on Service Bus.");
             }
-            catch (MessagingEntityNotFoundException)
+            catch (ServiceBusException ex) when (ex.Reason == ServiceBusFailureReason.MessagingEntityNotFound)
             {
-                _logger.LogInformation($"The messaging entity {eventName} Could not be found.");
+                _logger.LogWarning("The messaging entity {eventName} Could not be found.", eventName);
             }
 
-            _subsManager.RemoveSubscription<T, TH>();
+            _logger.LogInformation("Unsubscribing from event {EventName}", eventName);
+
+            _subscriptionManager.RemoveSubscription<T, TH>();
         }
 
         public void UnsubscribeDynamic<TH>(string eventName)
             where TH : IDynamicIntegrationEventHandler
         {
-            _subsManager.RemoveDynamicSubscription<TH>(eventName);
+            _logger.LogInformation("Unsubscribing from dynamic event {EventName}", eventName);
+
+            _subscriptionManager.RemoveDynamicSubscription<TH>(eventName);
         }
 
-        public void Dispose()
+        private async Task RegisterSubscriptionClientMessageHandlerAsync()
         {
-            _subsManager.Clear();
-        }
-
-        private void RegisterSubscriptionClientMessageHandler()
-        {
-            _logger.LogTrace("Trying to register message handler...");
-
-            _subscriptionClient.RegisterMessageHandler(
-                async (message, _) =>
+            _processor.ProcessMessageAsync +=
+                async args =>
                 {
-                    var eventName = $"{message.Label}{INTEGRATION_EVENT_SUFFIX}";
-                    var messageData = Encoding.UTF8.GetString(message.Body);
+                    var eventName = $"{args.Message.Subject}{INTEGRATION_EVENT_SUFFIX}";
+                    var messageData = args.Message.Body.ToString();
+
+                    // Complete the message so that it is not received again.
+                    if (await ProcessEvent(eventName, messageData))
+                        await args.CompleteMessageAsync(args.Message);
+                    else
+                        _logger.LogInformation("The event wasn't processed and will therefore not be completed.");
+                };
+
+            _processor.ProcessErrorAsync += ErrorHandler;
+            await _processor.StartProcessingAsync();
+        }
+
+        private Task ErrorHandler(ProcessErrorEventArgs args)
+        {
+            var ex = args.Exception;
+            var context = args.ErrorSource;
+
+            _logger.LogError(ex, "ERROR handling message: {ExceptionMessage} - Context: {@ExceptionContext}",
+                ex.Message, context);
+
+            return Task.CompletedTask;
+        }
+
+        private async Task<bool> ProcessEvent(string eventName, string message)
+        {
+            if (!_subscriptionManager.HasSubscriptionsForEvent(eventName))
+                return false;
+
+            await using var scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME);
+
+            var subscriptions = _subscriptionManager.GetHandlersForEvent(eventName);
+            foreach (var subscription in subscriptions)
+                if (subscription.IsDynamic)
+                {
+                    throw new NotImplementedException("Dynamic Events are not supported.");
+                }
+                else
+                {
+                    var handler = scope.ResolveOptional(subscription.HandlerType);
+                    if (handler == null) continue;
+                    var eventType = _subscriptionManager.GetEventTypeByName(eventName);
+                    var integrationEvent = (IntegrationEvent) JsonConvert.DeserializeObject(message, eventType,
+                        new JsonSerializerSettings
+                        {
+                            ContractResolver = new ContractResolverWithPrivates()
+                        })!;
+                    var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType!);
+
                     try
                     {
-                        await ProcessEvent(eventName, messageData);
-
-                        // Complete the message so that it is not received again.
-                        await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
+                        await (Task) concreteType.GetMethod("Handle")!.Invoke(handler, new[] {integrationEvent})!;
                     }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex,
-                            $"An error occurred while processing the integration event with id '{message.MessageId}'.");
+                            $"An error occurred while processing the integration event with id '{integrationEvent.IntegrationEventId}'.");
+                        return false;
                     }
+                }
 
-                    _logger.LogTrace("Successfully registered message handler.");
-                },
-                new MessageHandlerOptions(ExceptionReceivedHandler) {MaxConcurrentCalls = 10, AutoComplete = false});
-        }
-
-        private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
-        {
-            Console.WriteLine($"Message handler encountered an exception {exceptionReceivedEventArgs.Exception}.");
-            var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-            Console.WriteLine("Exception context for troubleshooting:");
-            Console.WriteLine($"- Endpoint: {context.Endpoint}");
-            Console.WriteLine($"- Entity Path: {context.EntityPath}");
-            Console.WriteLine($"- Executing Action: {context.Action}");
-            return Task.CompletedTask;
-        }
-
-        private async Task ProcessEvent(string eventName, string message)
-        {
-            _logger.LogTrace($"Received integration event '{eventName}'.");
-
-            if (_subsManager.HasSubscriptionsForEvent(eventName))
-            {
-                await using var scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME);
-
-                var subscriptions = _subsManager.GetHandlersForEvent(eventName).ToArray();
-
-                _logger.LogTrace($"Found {subscriptions.Length} subscriptions for '{eventName}' event.");
-
-                foreach (var subscription in subscriptions)
-                    if (subscription.IsDynamic)
-                    {
-                        var handler =
-                            scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
-                        if (handler == null)
-                            throw new Exception(
-                                $"The handler type {subscription.HandlerType.FullName} is not registered in the dependency container.");
-
-                        dynamic eventData = JObject.Parse(message);
-                        await handler.Handle(eventData);
-
-                        _logger.LogTrace("Successfully invoked dynamic integration event handler...");
-                    }
-                    else
-                    {
-                        var eventType = _subsManager.GetEventTypeByName(eventName);
-
-                        if (eventType == null) throw new Exception($"Unsupported event type '${eventType}' received.");
-
-                        var integrationEvent = JsonConvert.DeserializeObject(message, eventType,
-                            new JsonSerializerSettings
-                            {
-                                ContractResolver = new ContractResolverWithPrivates()
-                            });
-                        var handler = scope.ResolveOptional(subscription.HandlerType);
-                        if (handler == null)
-                            throw new Exception(
-                                $"The handler type {subscription.HandlerType.FullName} is not registered in the dependency container.");
-
-                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                        await (Task) concreteType.GetMethod("Handle")!.Invoke(handler, new[] {integrationEvent})!;
-
-                        _logger.LogTrace("Successfully invoked integration event handler...");
-                    }
-            }
-        }
-
-        private async Task RemoveDefaultRule()
-        {
-            try
-            {
-                await _subscriptionClient.RemoveRuleAsync(RuleDescription.DefaultRuleName);
-            }
-            catch (MessagingEntityNotFoundException)
-            {
-                _logger.LogInformation($"The messaging entity {RuleDescription.DefaultRuleName} Could not be found.");
-            }
+            return true;
         }
     }
 }

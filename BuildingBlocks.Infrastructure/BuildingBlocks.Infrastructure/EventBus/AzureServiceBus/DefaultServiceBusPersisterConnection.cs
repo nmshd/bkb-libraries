@@ -1,42 +1,40 @@
-﻿using System;
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Logging;
+﻿using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
 {
     public class DefaultServiceBusPersisterConnection : IServiceBusPersisterConnection
     {
-        private readonly ILogger<DefaultServiceBusPersisterConnection> _logger;
+        private readonly string _serviceBusConnectionString;
 
         private bool _disposed;
-        private ITopicClient _topicClient;
+        private ServiceBusClient _topicClient;
 
-        public DefaultServiceBusPersisterConnection(ServiceBusConnectionStringBuilder serviceBusConnectionStringBuilder,
-            ILogger<DefaultServiceBusPersisterConnection> logger)
+        public DefaultServiceBusPersisterConnection(string serviceBusConnectionString)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
-            ServiceBusConnectionStringBuilder = serviceBusConnectionStringBuilder ??
-                                                throw new ArgumentNullException(
-                                                    nameof(serviceBusConnectionStringBuilder));
-            _topicClient = new TopicClient(ServiceBusConnectionStringBuilder, RetryPolicy.Default);
+            _serviceBusConnectionString = serviceBusConnectionString;
+            AdministrationClient = new ServiceBusAdministrationClient(_serviceBusConnectionString);
+            _topicClient = new ServiceBusClient(_serviceBusConnectionString);
         }
 
-        public ServiceBusConnectionStringBuilder ServiceBusConnectionStringBuilder { get; }
-
-        public ITopicClient CreateModel()
+        public ServiceBusClient TopicClient
         {
-            if (_topicClient.IsClosedOrClosing)
-                _topicClient = new TopicClient(ServiceBusConnectionStringBuilder, RetryPolicy.Default);
+            get
+            {
+                if (_topicClient.IsClosed) _topicClient = new ServiceBusClient(_serviceBusConnectionString);
 
-            return _topicClient;
+                return _topicClient;
+            }
         }
+
+        public ServiceBusAdministrationClient AdministrationClient { get; }
 
         public void Dispose()
         {
             if (_disposed) return;
 
             _disposed = true;
+            _topicClient.DisposeAsync().GetAwaiter().GetResult();
         }
     }
 }
