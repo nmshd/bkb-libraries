@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<IsPackable>true</IsPackable>
 		<PackageId>Enmeshed.UnitTestTools</PackageId>
 		<PackageProjectUrl>https://enmeshed.eu</PackageProjectUrl>
 		<PackageTags>Enmeshed</PackageTags>
