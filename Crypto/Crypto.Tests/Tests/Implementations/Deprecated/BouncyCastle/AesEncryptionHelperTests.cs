@@ -1,5 +1,4 @@
-﻿using System;
-using Enmeshed.Crypto.Abstractions;
+﻿using Enmeshed.Crypto.Abstractions;
 using Enmeshed.Crypto.Implementations.Deprecated.BouncyCastle.Symmetric;
 using Xunit;
 

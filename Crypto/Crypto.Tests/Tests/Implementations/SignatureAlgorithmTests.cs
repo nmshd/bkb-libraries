@@ -1,4 +1,3 @@
-using System;
 using Enmeshed.Crypto.Implementations;
 using NSec.Cryptography;
 using Xunit;
