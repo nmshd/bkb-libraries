@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus
+﻿namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

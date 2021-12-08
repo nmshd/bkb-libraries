@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus

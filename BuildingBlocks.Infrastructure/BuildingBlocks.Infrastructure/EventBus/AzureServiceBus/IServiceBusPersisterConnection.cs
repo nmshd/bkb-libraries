@@ -1,5 +1,4 @@
-﻿using System;
-using Azure.Messaging.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
