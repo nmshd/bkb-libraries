@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Enmeshed.StronglyTypedIds
+﻿namespace Enmeshed.StronglyTypedIds
 {
     public class InvalidIdException : Exception
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Enmeshed.StronglyTypedIds
+﻿namespace Enmeshed.StronglyTypedIds
 {
     public static class StringUtils
     {
