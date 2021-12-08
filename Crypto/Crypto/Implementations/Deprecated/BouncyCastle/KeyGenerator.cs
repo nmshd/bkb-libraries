@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Enmeshed.Crypto.Abstractions;
+﻿using Enmeshed.Crypto.Abstractions;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Enmeshed.Crypto.ExtensionMethods
+﻿namespace Enmeshed.Crypto.ExtensionMethods
 {
     public static class IEnumerableExtensions
     {

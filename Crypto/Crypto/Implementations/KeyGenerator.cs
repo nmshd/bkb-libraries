@@ -1,5 +1,4 @@
-﻿using System;
-using Enmeshed.Crypto.Abstractions;
+﻿using Enmeshed.Crypto.Abstractions;
 using NSec.Cryptography;
 
 namespace Enmeshed.Crypto.Implementations

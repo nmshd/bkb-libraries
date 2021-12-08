@@ -1,4 +1,3 @@
-using System;
 using Enmeshed.Crypto.Implementations.Deprecated.BouncyCastle.Asymmetric;
 using Xunit;
 

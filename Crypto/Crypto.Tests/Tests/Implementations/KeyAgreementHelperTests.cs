@@ -1,5 +1,4 @@
-﻿using System;
-using Enmeshed.Crypto.Implementations;
+﻿using Enmeshed.Crypto.Implementations;
 using FluentAssertions;
 using Xunit;
 
