@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
 		<Nullable>enable</Nullable>
@@ -12,6 +12,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<IsPackable>true</IsPackable>
 		<PackageId>Enmeshed.UnitTestTools</PackageId>
 		<PackageProjectUrl>https://enmeshed.eu</PackageProjectUrl>
 		<PackageTags>Enmeshed</PackageTags>
