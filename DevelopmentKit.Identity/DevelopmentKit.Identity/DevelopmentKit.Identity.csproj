@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
 		<Nullable>enable</Nullable>
@@ -21,7 +21,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Enmeshed.StronglyTypedIds" Version="1.0.0" />
+		<PackageReference Include="Enmeshed.StronglyTypedIds" Version="1.0.1" />
 		<PackageReference Include="SimpleBase" Version="3.1.0" />
 	</ItemGroup>
 
