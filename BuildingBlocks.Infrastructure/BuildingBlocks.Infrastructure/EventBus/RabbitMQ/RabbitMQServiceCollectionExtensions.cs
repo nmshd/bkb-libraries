@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Infrastructure.EventBus;
 using Enmeshed.BuildingBlocks.Infrastructure.EventBus.RabbitMQ;

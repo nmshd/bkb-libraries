@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitMQ.Client;

@@ -1,5 +1,4 @@
-﻿using System;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 
 namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.RabbitMQ
 {
