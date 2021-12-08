@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Enmeshed.StronglyTypedIds
+﻿namespace Enmeshed.StronglyTypedIds
 {
     public static class StringExtensions
     {
