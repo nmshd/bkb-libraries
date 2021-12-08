@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Enmeshed.DevelopmentKit.Identity.ValueObjects;
+﻿using Enmeshed.DevelopmentKit.Identity.ValueObjects;
 
 #pragma warning disable CS8618 // turn off nullable checks
 namespace Enmeshed.DevelopmentKit.Identity.Entities
