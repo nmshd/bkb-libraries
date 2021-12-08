@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace Enmeshed.BuildingBlocks.Application.CQRS.BaseClasses
 {

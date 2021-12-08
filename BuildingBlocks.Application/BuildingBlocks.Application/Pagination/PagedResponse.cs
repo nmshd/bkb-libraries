@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Enmeshed.BuildingBlocks.Application.CQRS.BaseClasses;
+﻿using Enmeshed.BuildingBlocks.Application.CQRS.BaseClasses;
 
 namespace Enmeshed.BuildingBlocks.Application.Pagination
 {

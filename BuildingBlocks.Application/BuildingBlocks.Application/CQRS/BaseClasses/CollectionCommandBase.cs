@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using MediatR;
 
 namespace Enmeshed.BuildingBlocks.Application.CQRS.BaseClasses
