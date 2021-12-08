@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System.Text;
 using FluentAssertions.Primitives;
 using Xunit.Sdk;
 
