@@ -21,7 +21,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Enmeshed.StronglyTypedIds" Version="1.0.0" />
+		<PackageReference Include="Enmeshed.StronglyTypedIds" Version="1.0.1" />
 		<PackageReference Include="SimpleBase" Version="3.1.0" />
 	</ItemGroup>
 
