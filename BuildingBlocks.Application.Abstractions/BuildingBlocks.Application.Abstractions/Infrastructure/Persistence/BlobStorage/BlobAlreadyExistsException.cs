@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage
+﻿namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage
 {
     public class BlobAlreadyExistsException : Exception
     {

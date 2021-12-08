@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions
+﻿namespace Enmeshed.BuildingBlocks.Application.Abstractions.Exceptions
 {
     public class ValidationException : ApplicationException
     {
