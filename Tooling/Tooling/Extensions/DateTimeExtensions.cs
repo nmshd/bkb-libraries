@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Enmeshed.Tooling.Extensions
+﻿namespace Enmeshed.Tooling.Extensions
 {
     public static class DateTimeExtensions
     {
