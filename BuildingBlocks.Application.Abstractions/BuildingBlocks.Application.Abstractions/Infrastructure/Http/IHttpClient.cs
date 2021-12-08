@@ -1,7 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Http
+﻿namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Http
 {
     public interface IHttpClient
     {

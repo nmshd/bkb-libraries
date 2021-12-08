@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage
+﻿namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.Persistence.BlobStorage
 {
     public interface IBlobStorage
     {

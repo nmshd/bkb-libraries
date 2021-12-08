@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
+﻿using Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus.Events;
 
 namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus
 {

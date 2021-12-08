@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus
+﻿namespace Enmeshed.BuildingBlocks.Application.Abstractions.Infrastructure.EventBus
 {
     public interface IDynamicIntegrationEventHandler
     {
