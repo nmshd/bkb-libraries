@@ -1,5 +1,4 @@
-﻿using System;
-using AutoFixture;
+﻿using AutoFixture;
 using Enmeshed.UnitTestTools.AutoFixture;
 using Enmeshed.Tooling;
 
