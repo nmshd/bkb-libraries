@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Enmeshed.BuildingBlocks.Application.Pagination;
+﻿using Enmeshed.BuildingBlocks.Application.Pagination;
 
 namespace Enmeshed.BuildingBlocks.Application.Extensions
 {
