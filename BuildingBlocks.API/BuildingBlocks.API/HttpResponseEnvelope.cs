@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Enmeshed.BuildingBlocks.API
+﻿namespace Enmeshed.BuildingBlocks.API
 {
     public class HttpResponseEnvelope
     {

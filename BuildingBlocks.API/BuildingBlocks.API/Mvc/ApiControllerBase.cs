@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using Enmeshed.BuildingBlocks.Application.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Http;
