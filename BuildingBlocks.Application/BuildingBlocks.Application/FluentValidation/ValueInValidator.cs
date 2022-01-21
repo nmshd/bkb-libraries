@@ -59,7 +59,7 @@ namespace Enmeshed.BuildingBlocks.Application.FluentValidation
 
         protected override string GetDefaultMessageTemplate(string errorCode)
         {
-            return "'{PropertyName}' must have one of these values: {ValidValues}";
+            return $"'{{PropertyName}}' must have one of the following values: {ValidValues}";
         }
     }
 
