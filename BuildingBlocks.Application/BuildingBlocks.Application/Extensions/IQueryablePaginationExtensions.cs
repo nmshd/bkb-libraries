@@ -28,8 +28,7 @@ namespace Enmeshed.BuildingBlocks.Application.Extensions
             else
             {
                 if (items.Count < paginationFilter.PageSize)
-                    totalNumberOfItems = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize.Value +
-                                         items.Count;
+                    totalNumberOfItems = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize.Value + items.Count;
                 else
                     totalNumberOfItems = await query.CountAsync();
             }
