@@ -9,9 +9,9 @@ namespace Enmeshed.BuildingBlocks.Application.Extensions
     public static class IQueryablePaginationExtensions
     {
         public static async Task<DbPaginationResult<T>> OrderAndPaginate<T, TOrderProperty>(this IQueryable<T> query,
-            Expression<Func<T, TOrderProperty>> x, PaginationFilter paginationFilter)
+            Expression<Func<T, TOrderProperty>> orderBy, PaginationFilter paginationFilter)
         {
-            var items = await query.OrderBy(x).Paged(paginationFilter).ToListAsync();
+            var items = await query.OrderBy(orderBy).Paged(paginationFilter).ToListAsync();
             var totalNumberOfItems = await CalculateTotalNumberOfItems(paginationFilter, items, query);
 
             return new DbPaginationResult<T>(items, totalNumberOfItems);
