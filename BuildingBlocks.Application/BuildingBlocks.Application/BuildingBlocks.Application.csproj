@@ -25,7 +25,7 @@
 		<PackageReference Include="AutoMapper" Version="10.1.1" />
 		<PackageReference Include="ByteSize" Version="2.1.1" />
 		<PackageReference Include="FluentValidation" Version="10.3.5" />
-		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.4" />
+		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.5" />
 		<PackageReference Include="Enmeshed.Tooling" Version="1.1.2" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
