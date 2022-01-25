@@ -59,21 +59,16 @@ namespace Enmeshed.BuildingBlocks.Infrastructure.Persistence.Database
             return await RunInTransaction(func, null, isolationLevel);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.ConfigureConventions(configurationBuilder);
 
-            modelBuilder.UseValueConverter(
-                new UsernameValueConverter(
-                    new ConverterMappingHints(Username.MAX_LENGTH)));
+            configurationBuilder.Properties<IdentityAddress>().AreFixedLength().AreUnicode(false).HaveMaxLength(IdentityAddress.MAX_LENGTH).HaveConversion<IdentityAddressValueConverter>();
+            configurationBuilder.Properties<DeviceId>().AreFixedLength().AreUnicode(false).HaveMaxLength(DeviceId.MAX_LENGTH).HaveConversion<DeviceIdValueConverter>();
+            configurationBuilder.Properties<UsernameValueConverter>().AreFixedLength().AreUnicode(false).HaveMaxLength(Username.MAX_LENGTH).HaveConversion<UsernameValueConverter>();
 
-            modelBuilder.UseValueConverter(
-                new IdentityAddressValueConverter(new ConverterMappingHints(IdentityAddress.MAX_LENGTH)));
-
-            modelBuilder.UseValueConverter(new DeviceIdValueConverter(new ConverterMappingHints(DeviceId.MAX_LENGTH)));
-
-            modelBuilder.UseValueConverter(new DateTimeValueConverter());
-            modelBuilder.UseValueConverter(new NullableDateTimeValueConverter());
+            configurationBuilder.Properties<DateTime>().HaveConversion<DateTimeValueConverter>();
+            configurationBuilder.Properties<DateTime?>().HaveConversion<NullableDateTimeValueConverter>();
         }
 
         protected void RollBack()

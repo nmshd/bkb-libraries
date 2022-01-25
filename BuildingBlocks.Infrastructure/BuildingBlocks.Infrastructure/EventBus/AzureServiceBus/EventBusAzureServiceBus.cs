@@ -158,7 +158,7 @@ namespace Enmeshed.BuildingBlocks.Infrastructure.EventBus.AzureServiceBus
                     if (await ProcessEvent(eventName, messageData))
                         await args.CompleteMessageAsync(args.Message);
                     else
-                        _logger.LogInformation("The event wasn't processed and will therefore not be completed.");
+                        _logger.LogInformation($"The event with the MessageId '{args.Message.MessageId}' wasn't processed and will therefore not be completed.");
                 };
 
             _processor.ProcessErrorAsync += ErrorHandler;
