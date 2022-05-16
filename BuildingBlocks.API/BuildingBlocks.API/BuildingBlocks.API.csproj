@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
 		<Nullable>enable</Nullable>
@@ -29,8 +29,8 @@
 		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="4.5.1" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.16.1" />
 		<PackageReference Include="Polly" Version="7.2.2" />
