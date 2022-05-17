@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>1.1.1</Version>
+		<Version>1.1.2</Version>
 		<Authors>j&amp;s soft GmbH</Authors>
 		<Company>j&amp;s soft GmbH</Company>
 		<Nullable>enable</Nullable>
@@ -24,7 +24,7 @@
 		<PackageReference Include="Autofac" Version="6.3.0" />
 		<PackageReference Include="Azure.Messaging.ServiceBus" Version="7.5.1" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
-		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.5" />
+		<PackageReference Include="Enmeshed.BuildingBlocks.Application.Abstractions" Version="1.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
