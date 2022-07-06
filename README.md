@@ -18,12 +18,18 @@ This monorepo consolidates all libraries used in multiple Enmeshed Backbone micr
 
 ## Documentation
 
-The documentation for this project is currently under construction.
+You can find the documentation for Enmeshed on [enmeshed.eu](https://enmeshed.eu).
+
+## Feedback
+
+Please file any bugs or feature requests by creating an [issue](https://github.com/nmshd/feedback/issues).
+
+Share your feedback with the Enmeshed team by contributing to the [discussions](https://github.com/nmshd/feedback/discussions).
 
 ## Contribute
 
-Currently contribution to this project is not possible. This will change soon.
+Contribution to this project is highly apprecicated. Head over to our [contribution guide](https://github.com/nmshd/.github/blob/main/CONTRIBUTING.md) to learn more.
 
 ## License
 
-All packages in this monorepo are published under the [MIT LICENSE](LICENSE).
+[MIT](LICENSE)
